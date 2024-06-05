@@ -11,4 +11,5 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     List<Member> findByMemberStatus(MemberStatus memberStatus);
     Member findByEmail(String email);
     Member findByPhone(String phone);
+    Member findByUserId(String userId);
 }

@@ -1,6 +1,7 @@
 package org.example.minishoppingmall.service;
 
 import org.assertj.core.api.Assertions;
+import org.example.minishoppingmall.dto.MemberCreateDto;
 import org.example.minishoppingmall.entity.Member;
 import org.example.minishoppingmall.entity.MemberStatus;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -25,22 +27,24 @@ class MemberServiceTest {
     @Test
     public void addMember(){
         //given
-        Member member = new Member(
-                0,"test","aaa","1111","a@naver.com","00000000000","구미동 하나프라자빌딩",
-                MemberStatus.A, LocalDate.now(), null);
+        MemberCreateDto member = new MemberCreateDto(
+                "test","aaa","1111","00000000000","b@naver.com","구미동 하나프라자빌딩"
+                );
         //when
-        memberService.addMember(member);
-        List<Member> allMembers = memberService.getAllMembers();
+        //memberService.addMember(member);
+        //List<Member> allMembers = memberService.getAllMembers();
         //then
-        assertThat(allMembers.size()).isEqualTo(1);
+        //assertThat(allMembers.size()).isEqualTo(1);
+        assertThatThrownBy(() -> memberService.addMember(member))
+                .hasMessage("동일한 아이디가 존재합니다.");
     }
 
     @Test
     public void changePassword(){
         //given
-        Member member = new Member(
-                0,"test","aaa","1111","a@naver.com","00000000000","구미동 하나프라자빌딩",
-                MemberStatus.A, LocalDate.now(), null);
+        MemberCreateDto member = new MemberCreateDto(
+                "test","aaa","1111","a@naver.com","00000000000","구미동 하나프라자빌딩"
+                );
         int memberId = memberService.addMember(member);
         //when
         memberService.changePassword(memberId, "2222", "0000");
