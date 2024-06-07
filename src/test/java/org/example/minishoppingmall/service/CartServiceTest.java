@@ -118,8 +118,8 @@ class CartServiceTest {
         // 장바구니에 이미 상품정보가 담겨짐
         CartCreateDto cartDto = new CartCreateDto(cartId,prodId,1,product.getPrice());
         int cartProdId = cartService.addCartProduct(cartDto);
-        //when - 장바구니에 담긴 상품의 수량을 최소수량보다 작게 변경하면
-        CartUpdateDto cartUpdateDto = new CartUpdateDto(cartProdId, -1);
+        //when - 장바구니에 담긴 상품의 수량을 최소수량(1)보다 작게 변경하면
+        CartUpdateDto cartUpdateDto = new CartUpdateDto(cartProdId, 0);
         cartService.updateCartProduct(cartUpdateDto);
         CartProduct cartProduct = cartService.getCartProductById(cartProdId);
         //then - 반영이 안되는지 체크, 즉 생성시에 입력한 수량이 변동이 없어야 함
