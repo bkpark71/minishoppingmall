@@ -32,7 +32,11 @@ public class CartProduct {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
+        // 장바구니에 0 이어도 담겨져 있는다면 수량만 변경
+        // 장바구니에서 담을 최소수량이 정해져있다면 그 내용도 반영해서 처리
+        if (quantity >= 0) {
+            this.quantity = quantity;
+        }
     }
 //    public void decreaseQuantity(int quantity) {
 //        if (this.quantity >= quantity) {

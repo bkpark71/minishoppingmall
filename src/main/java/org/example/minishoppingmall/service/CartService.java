@@ -34,7 +34,7 @@ public class CartService {
     }
 
     @Transactional
-    public void addCartProduct(CartCreateDto cartDto) { // 쇼핑화면에서 장바구니 추가를 눌렀을때
+    public int addCartProduct(CartCreateDto cartDto) { // 쇼핑화면에서 장바구니 추가를 눌렀을때
         CartProduct findCartProd = cartProductRepository.findByCart_CartIdAndProduct_ProductId(cartDto.getCartId(), cartDto.getProductId());
         if(findCartProd == null) {
             Cart cart = cartRepository.findById(cartDto.getCartId()).get();
@@ -43,7 +43,7 @@ public class CartService {
         } else {
             findCartProd.increaseQuantity(cartDto.getQuantity());
         }
-        cartProductRepository.save(findCartProd);
+        return cartProductRepository.save(findCartProd).getCartProdId();
     }
 
     @Transactional
