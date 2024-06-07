@@ -36,12 +36,14 @@ class OrderServiceTest {
         StockCreateDto stockDto = new StockCreateDto("KR", prodId, 10000);
         int stockId = stockService.addStock(stockDto);
         //when
-
         OrderProductCreateDto orderDto = new OrderProductCreateDto(memberId, prodId, 10, product.getPrice());
         Order order = orderService.createOrder(orderDto);
+        Stock stock = stockService.getStockById(stockId);
         //then
         assertThat(order.getOrderProducts().size()).isEqualTo(1);
         assertThat(order.getDelivery().getAddress()).isEqualTo(memberDto.getAddress());
+        assertThat(order.getTotalPrice()).isEqualTo(orderDto.getPrice() * orderDto.getQuantity());
+        assertThat(stock.getQuantity()).isEqualTo(stockDto.getQuantity() - orderDto.getQuantity());
     }
 
 }
