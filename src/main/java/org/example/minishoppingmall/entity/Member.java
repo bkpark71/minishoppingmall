@@ -32,6 +32,8 @@ public class Member {
     private MemberStatus memberStatus;
     private LocalDate registerDate;
     private LocalDate leaveDate;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "member")
+    private Cart cart;
 
     public void setMemberName(String memberName) {
         this.memberName = memberName;

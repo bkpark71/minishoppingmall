@@ -2,8 +2,11 @@ package org.example.minishoppingmall.service;
 
 import org.assertj.core.api.Assertions;
 import org.example.minishoppingmall.dto.MemberCreateDto;
+import org.example.minishoppingmall.entity.Cart;
 import org.example.minishoppingmall.entity.Member;
 import org.example.minishoppingmall.entity.MemberStatus;
+import org.example.minishoppingmall.repository.CartRepository;
+import org.example.minishoppingmall.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,22 +24,30 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    CartRepository cartRepository;
     //given
     //when
     //then
     @Test
     public void addMember(){
         //given
-        MemberCreateDto member = new MemberCreateDto(
-                "test","aaa","1111","00000000000","b@naver.com","구미동 하나프라자빌딩"
+        MemberCreateDto memberDto = new MemberCreateDto(
+                "test2","bbb","1111","00000000000","b@naver.com","하나빌딩"
                 );
         //when
-        //memberService.addMember(member);
+        int i = memberService.addMember(memberDto);
+        Member memberById = memberService.getMemberById(i);
+
+        Cart cart = cartRepository.findByMember(memberById);
         //List<Member> allMembers = memberService.getAllMembers();
         //then
-        //assertThat(allMembers.size()).isEqualTo(1);
-        assertThatThrownBy(() -> memberService.addMember(member))
-                .hasMessage("동일한 아이디가 존재합니다.");
+
+        assertThat(memberById.getUserId()).isEqualTo("bbb");
+        assertThat(cart.getMember()).isEqualTo(memberById);
+//        assertThatThrownBy(() -> memberService.addMember(member))
+//                .hasMessage("동일한 아이디가 존재합니다.");
     }
 
     @Test

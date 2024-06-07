@@ -3,11 +3,13 @@ package org.example.minishoppingmall.service;
 import lombok.RequiredArgsConstructor;
 import org.example.minishoppingmall.dto.MemberCreateDto;
 import org.example.minishoppingmall.dto.MemberUpdateDto;
+import org.example.minishoppingmall.entity.Cart;
 import org.example.minishoppingmall.entity.Member;
 import org.example.minishoppingmall.entity.MemberStatus;
 import org.example.minishoppingmall.exception.NotUniqueEmailException;
 import org.example.minishoppingmall.exception.NotUniquePhoneException;
 import org.example.minishoppingmall.exception.NotUniqueUserIdException;
+import org.example.minishoppingmall.repository.CartRepository;
 import org.example.minishoppingmall.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ import static org.example.minishoppingmall.entity.QMember.member;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final CartRepository cartRepository;
 
     public List<Member> getAllMembers() {
         return memberRepository.findAll();
@@ -36,10 +39,16 @@ public class MemberService {
         uniqueUserIdCheck(memberDto.getUserId());
         uniqueEmailCheck(memberDto.getEmail());
         uniquePhoneCheck(memberDto.getPhone());
+        Cart cart = new Cart(); // card_id 생성, 멤버는 null
+
         Member member = new Member(
                 0,memberDto.getMemberName(), memberDto.getUserId(), memberDto.getPassword(),memberDto.getEmail(),
-                memberDto.getPhone(), memberDto.getAddress(), MemberStatus.A, LocalDate.now(), null);
-        return memberRepository.save(member).getMemberId();// 장바구니 같이 만들어지는지 확인
+                memberDto.getPhone(), memberDto.getAddress(), MemberStatus.A, LocalDate.now(), null, cart);
+
+        cart.setMember(member);
+        cartRepository.save(cart); // 장바구니를 만들고 , 멤버를 만들고 , 장바구니만 persist 하면 회원은 자동 persist
+        return cart.getMember().getMemberId();
+//        return memberRepository.save(member).getMemberId();// 장바구니 같이 만들어지는지 확인
     }
 
     @Transactional
