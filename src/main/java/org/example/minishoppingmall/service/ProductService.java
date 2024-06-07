@@ -26,8 +26,9 @@ public class ProductService {
     }
 
     @Transactional
-    public void addProduct(Product product) {
-        productRepository.save(product);
+    public int addProduct(Product product) {
+        Product save = productRepository.save(product);
+        return save.getProductId();
     }
 
     @Transactional

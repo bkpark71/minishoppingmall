@@ -23,7 +23,7 @@ public class CartService {
     private final CartProductRepository cartProductRepository;
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
-    private final MemberRepository memberRepository;
+    //private final MemberRepository memberRepository;
 
     public List<CartProduct> getAllCartProducts(Cart cart) {
         return cartProductRepository.findAllByCart(cart);
@@ -39,7 +39,7 @@ public class CartService {
         if(findCartProd == null) {
             Cart cart = cartRepository.findById(cartDto.getCartId()).get();
             Product product = productRepository.findById(cartDto.getProductId()).get();
-            CartProduct findCartProduct = CartProduct.addCartProduct(cart, product, cartDto.getQuantity(), cartDto.getPrice());
+            findCartProd = CartProduct.addCartProduct(cart, product, cartDto.getQuantity(), cartDto.getPrice());
         } else {
             findCartProd.increaseQuantity(cartDto.getQuantity());
         }
@@ -48,8 +48,11 @@ public class CartService {
 
     @Transactional
     public void updateCartProduct(CartUpdateDto cartDto) { // 화면에서 수량을 변경한 내용으로 바로 update
-        // 재고 체크를 해야 하는 상황이라면, 선택한 상품의 재고보다 큰 수량을
+        // 장바구니에 담을 때도 재고 체크를 해야 하는 상황이라면, 선택한 상품의 재고보다 큰 수량을
         // 장바구니에 담지 못하게 한다.
+        // 우리의 경우는 지역이 하나밖에 없지만 여러 warehouse가 있고, 재고 체크를 하려면
+        // 회원의 살고 있는 지역을 담당하는 Warehouse를 찾아서 해당 warehouse의 상품 재고를 확인하는
+        // 로직을 추가해야 한다.
         CartProduct cartProduct = cartProductRepository.findById(cartDto.getCartProdId()).get();
         cartProduct.setQuantity(cartDto.getQuantity());
         cartProductRepository.save(cartProduct);
