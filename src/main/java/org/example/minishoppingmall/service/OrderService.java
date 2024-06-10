@@ -1,6 +1,7 @@
 package org.example.minishoppingmall.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.minishoppingmall.dto.order.OrderInquiryDto;
 import org.example.minishoppingmall.dto.order.OrderProductCreateDto;
 import org.example.minishoppingmall.entity.*;
 import org.example.minishoppingmall.repository.*;
@@ -20,7 +21,14 @@ public class OrderService {
     private final DeliveryRepository deliveryRepository;
     private final ProductRepository productRepository;
     private final StockRepository stockRepository;
-    
+
+    public List<Order> getAllMembersOrders(){
+        return orderRepository.findAllOrders(); // queryImpl 의 메서드1
+    }
+
+    public List<OrderInquiryDto> getAllMembersOrderDtos(){
+        return orderRepository.findAllOrderDTOs(); // queryImpl 의 메서드2
+    }
     public List<Order> getAllOrdersByMember(int memberId){
         return orderRepository.findAllByMember_MemberId(memberId);
     }

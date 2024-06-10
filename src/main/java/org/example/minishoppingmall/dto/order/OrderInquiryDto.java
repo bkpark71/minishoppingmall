@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class OrderInquiryDto {
     private int orderId;
     private int memberId;
+    private String memberName; // N+1 쿼리 테스트 위한 필드
     private LocalDateTime orderDate;
     private long totalQuantity;
     private long totalPrice;
