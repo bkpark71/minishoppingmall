@@ -2,13 +2,15 @@ package org.example.minishoppingmall.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.minishoppingmall.dto.order.OrderCreateResponseDto;
+import org.example.minishoppingmall.dto.order.OrderInquiryDto;
 import org.example.minishoppingmall.dto.order.OrderProductCreateDto;
+import org.example.minishoppingmall.dto.order.OrderProductInquiryDto;
 import org.example.minishoppingmall.entity.Order;
 import org.example.minishoppingmall.service.OrderService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -28,4 +30,36 @@ public class OrderController {
                 order.getStatus()
                 );
     }
+
+    @GetMapping("/{memberId}")
+    public List<OrderInquiryDto> getOrdersByMember(
+            @PathVariable("memberId") int memberId) {
+        return orderService.getAllOrdersByMember(memberId)
+                .stream()
+                .map(o -> new OrderInquiryDto(
+                        o.getOrderId(),
+                        o.getMember().getMemberId(),
+                        o.getOrderDate(),
+                        o.getTotalQuantity(),
+                        o.getTotalPrice(),
+                        o.getStatus(),
+                        o.getStatusChangeDate()))
+                .collect(Collectors.toList());
+    }
+    @GetMapping("/products/{orderId}")
+    public List<OrderProductInquiryDto> getOrderProductsByOrder(
+            @PathVariable("orderId") int orderId) {
+        return orderService.getAllOrderProductsByOrder(orderId)
+                .stream()
+                .map(o -> new OrderProductInquiryDto(
+                        o.getOrderProdId(),
+                        o.getOrder().getOrderId(),
+                        o.getProduct().getProductId(),
+                        o.getProduct().getProductName(),
+                        o.getQuantity(),
+                        o.getPrice(),
+                        o.getStatus()))
+                .collect(Collectors.toList());
+    }
+
 }

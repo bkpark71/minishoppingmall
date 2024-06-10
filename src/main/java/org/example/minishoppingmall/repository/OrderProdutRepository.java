@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface OrderProdutRepository extends JpaRepository<OrderProduct, Integer> {
-
+    List<OrderProduct> findAllByOrder_OrderId(int orderId);
 }

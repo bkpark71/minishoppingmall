@@ -15,16 +15,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final OrderProdutRepository orderProdutRepository;
     private final MemberRepository memberRepository;
     private final DeliveryRepository deliveryRepository;
-    private final OrderProdutRepository orderProdutRepository;
     private final ProductRepository productRepository;
     private final StockRepository stockRepository;
     
     public List<Order> getAllOrdersByMember(int memberId){
         return orderRepository.findAllByMember_MemberId(memberId);
     }
-    
+    public List<OrderProduct> getAllOrderProductsByOrder(int orderId){
+        return orderProdutRepository.findAllByOrder_OrderId(orderId);
+    }
+
     public Order getOrderById(int orderId){
         return orderRepository.findById(orderId).get();
     }
