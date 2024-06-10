@@ -1,11 +1,8 @@
-package org.example.minishoppingmall.dto;
+package org.example.minishoppingmall.dto.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.minishoppingmall.entity.MemberStatus;
-
-import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor

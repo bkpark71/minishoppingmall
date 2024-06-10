@@ -2,7 +2,6 @@ package org.example.minishoppingmall.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import org.example.minishoppingmall.dto.OrderProductCreateDto;
 
 @Entity
 @Getter
@@ -53,12 +52,12 @@ public class OrderProduct {
         return orderProduct;
     }
 
-    public void cancelOrderProduct(Stock stock, int quantity) {
+    public void cancelOrderProduct(Stock stock) {
+        // 품목별 취소는 가능 단, ordered 상태일때만 가능, 결제했거나 배송중이면 취소할 수 없음
         // 재고 증가, 3-> 2 수량을 줄여서 (부분)취소 불가능
-        this.quantity = 0;
         this.setStatus(OrderStatus.canceled);
-        stock.increaseStock(quantity);
+        stock.increaseStock(this.quantity);
+        //this.order.getTotalQuantity() -= this.quantity;
+        this.quantity = 0;
     }
-
-
 }

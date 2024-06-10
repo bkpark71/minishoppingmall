@@ -1,12 +1,8 @@
-package org.example.minishoppingmall.dto;
+package org.example.minishoppingmall.dto.order;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.minishoppingmall.entity.Order;
-import org.example.minishoppingmall.entity.Product;
 
 @Data
 @NoArgsConstructor

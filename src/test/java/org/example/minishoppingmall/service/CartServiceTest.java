@@ -1,9 +1,8 @@
 package org.example.minishoppingmall.service;
 
-import org.assertj.core.api.Assertions;
-import org.example.minishoppingmall.dto.CartCreateDto;
-import org.example.minishoppingmall.dto.CartUpdateDto;
-import org.example.minishoppingmall.dto.MemberCreateDto;
+import org.example.minishoppingmall.dto.cart.CartCreateDto;
+import org.example.minishoppingmall.dto.cart.CartUpdateDto;
+import org.example.minishoppingmall.dto.member.MemberCreateDto;
 import org.example.minishoppingmall.entity.Cart;
 import org.example.minishoppingmall.entity.CartProduct;
 import org.example.minishoppingmall.entity.Product;
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional

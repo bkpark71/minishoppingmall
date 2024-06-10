@@ -1,10 +1,12 @@
 package org.example.minishoppingmall.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
 @Getter
+//@JsonIgnore
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,4 +18,5 @@ public class Cart {
     public void setMember(Member member) {
         this.member = member;
     }
+
 }

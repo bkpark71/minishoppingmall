@@ -63,4 +63,21 @@ public class Member {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "memberId=" + memberId +
+                ", memberName='" + memberName + '\'' +
+                ", userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", memberStatus=" + memberStatus +
+                ", registerDate=" + registerDate +
+                ", leaveDate=" + leaveDate +
+                ", cart=" + cart +
+                '}';
+    }
 }

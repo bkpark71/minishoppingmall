@@ -1,20 +1,18 @@
 package org.example.minishoppingmall.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.minishoppingmall.dto.CartCreateDto;
-import org.example.minishoppingmall.dto.CartUpdateDto;
+import org.example.minishoppingmall.dto.cart.CartCreateDto;
+import org.example.minishoppingmall.dto.cart.CartUpdateDto;
 import org.example.minishoppingmall.entity.Cart;
 import org.example.minishoppingmall.entity.CartProduct;
 import org.example.minishoppingmall.entity.Product;
 import org.example.minishoppingmall.repository.CartProductRepository;
 import org.example.minishoppingmall.repository.CartRepository;
-import org.example.minishoppingmall.repository.MemberRepository;
 import org.example.minishoppingmall.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,7 +21,7 @@ public class CartService {
     private final CartProductRepository cartProductRepository;
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
-    //private final MemberRepository memberRepository;
+
 
     public List<CartProduct> getAllCartProducts(Cart cart) {
         return cartProductRepository.findAllByCart(cart);

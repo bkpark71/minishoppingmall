@@ -1,6 +1,6 @@
 package org.example.minishoppingmall.service;
 
-import org.assertj.core.api.Assertions;
+import org.example.minishoppingmall.dto.product.ProductCreateDto;
 import org.example.minishoppingmall.entity.Product;
 import org.example.minishoppingmall.entity.ProductStatus;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -24,9 +23,9 @@ class ProductServiceTest {
     @Test
     public void addProduct(){
         //given
-        Product product = new Product(0,"test", 100, 200, ProductStatus.A);
+        ProductCreateDto productDto = new ProductCreateDto("test", 100, 200, ProductStatus.A);
         //when
-        productService.addProduct(product);
+        productService.addProduct(productDto);
         List<Product> allProducts = productService.getAllProducts();
         //then
         assertThat(allProducts).hasSize(1);

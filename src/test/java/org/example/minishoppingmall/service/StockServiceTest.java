@@ -1,10 +1,8 @@
 package org.example.minishoppingmall.service;
 
-import org.assertj.core.api.Assertions;
-import org.example.minishoppingmall.dto.StockCreateDto;
+import org.example.minishoppingmall.dto.stock.StockCreateDto;
 import org.example.minishoppingmall.entity.Product;
 import org.example.minishoppingmall.entity.Stock;
-import org.example.minishoppingmall.entity.StockReason;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional

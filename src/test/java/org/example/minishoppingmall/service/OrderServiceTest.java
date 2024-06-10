@@ -1,18 +1,15 @@
 package org.example.minishoppingmall.service;
 
-import org.assertj.core.api.Assertions;
-import org.example.minishoppingmall.dto.MemberCreateDto;
-import org.example.minishoppingmall.dto.OrderProductCreateDto;
-import org.example.minishoppingmall.dto.StockCreateDto;
+import org.example.minishoppingmall.dto.member.MemberCreateDto;
+import org.example.minishoppingmall.dto.order.OrderProductCreateDto;
+import org.example.minishoppingmall.dto.stock.StockCreateDto;
 import org.example.minishoppingmall.entity.*;
-import org.example.minishoppingmall.exception.ValidationCheckException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional

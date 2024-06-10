@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.minishoppingmall.exception.OrderCancelException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -59,15 +60,17 @@ public class Order {
         this.orderProducts.add(orderProduct);
     }
 
-    private void cancelOrder(Stock stock){
-        // 품목별 취소는 가능 단, ordered 상태일때만 가능, 결제했거나 배송중이면 취소할 수 없음
-
-        //for(OrderProduct orderProduct:orderProducts){
-            //***
-            //orderProduct.cancelOrderProduct();
-        //}
+    public void cancelOrder(){
+        // 전체 주문 취소
         // 주문상태를 cancel 로 변경
-        this.status = OrderStatus.canceled;
-        this.statusChangeDate = LocalDateTime.now();
+        if(this.status.equals(OrderStatus.ordered)) {
+            this.status = OrderStatus.canceled;
+            this.statusChangeDate = LocalDateTime.now();
+            //this.totalPrice = 0;
+            //this.totalQuantity = 0;
+        } else {
+            throw new OrderCancelException("주문완료 상태의 주문만 취소가능합니다. 고객센터로 문의바랍니다.");
+        }
+
     }
 }

@@ -1,7 +1,7 @@
 package org.example.minishoppingmall.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.minishoppingmall.dto.StockCreateDto;
+import org.example.minishoppingmall.dto.stock.StockCreateDto;
 import org.example.minishoppingmall.entity.Product;
 import org.example.minishoppingmall.entity.Stock;
 import org.example.minishoppingmall.entity.StockReason;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

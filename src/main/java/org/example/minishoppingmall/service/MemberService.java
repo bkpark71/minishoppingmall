@@ -1,8 +1,8 @@
 package org.example.minishoppingmall.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.minishoppingmall.dto.MemberCreateDto;
-import org.example.minishoppingmall.dto.MemberUpdateDto;
+import org.example.minishoppingmall.dto.member.MemberCreateDto;
+import org.example.minishoppingmall.dto.member.MemberUpdateDto;
 import org.example.minishoppingmall.entity.Cart;
 import org.example.minishoppingmall.entity.Member;
 import org.example.minishoppingmall.entity.MemberStatus;
@@ -16,8 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import static org.example.minishoppingmall.entity.QMember.member;
 
 @Service
 @Transactional(readOnly = true)
@@ -36,6 +34,7 @@ public class MemberService {
 
     @Transactional
     public int addMember(MemberCreateDto memberDto) {
+        // refactoring 할것 !!!
         uniqueUserIdCheck(memberDto.getUserId());
         uniqueEmailCheck(memberDto.getEmail());
         uniquePhoneCheck(memberDto.getPhone());
